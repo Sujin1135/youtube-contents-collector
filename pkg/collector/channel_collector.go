@@ -15,8 +15,8 @@ func NewChannelCollector(dataAPI external.DataAPI) Collector {
 	}
 }
 
-func (c *channelCollector) Collect() (string, error) {
-	data, _ := c.dataAPI.Search()
-	fmt.Println("data is " + data)
+func (c *channelCollector) Collect(query string) (string, error) {
+	data, _ := c.dataAPI.Search(external.Channel, query)
+	fmt.Println("found channels are " + data)
 	return data, nil
 }
