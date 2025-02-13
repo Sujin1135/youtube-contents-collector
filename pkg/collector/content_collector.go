@@ -3,15 +3,15 @@ package collector
 import "channel-contents-collector/pkg/external"
 
 type contentCollector struct {
-	dataAPI *external.DataAPI
+	dataAPI external.DataAPI
 }
 
-func NewContentCollector(dataAPI *external.DataAPI) Collector {
+func NewContentCollector(dataAPI external.DataAPI) Collector {
 	return &contentCollector{
 		dataAPI: dataAPI,
 	}
 }
 
-func (c *contentCollector) collect() (string, error) {
+func (c *contentCollector) Collect() (string, error) {
 	return "", nil
 }

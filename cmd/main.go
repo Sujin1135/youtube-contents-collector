@@ -1,6 +1,8 @@
 package main
 
 import (
+	"channel-contents-collector/pkg/collector"
+	"channel-contents-collector/pkg/external"
 	"fmt"
 )
 
@@ -10,12 +12,12 @@ import (
 func main() {
 	//TIP <p>Press <shortcut actionId="ShowIntentionActions"/> when your caret is at the underlined text
 	// to see how GoLand suggests fixing the warning.</p><p>Alternatively, if available, click the lightbulb to view possible fixes.</p>
-	s := "gopher"
-	fmt.Println("Hello and welcome, %s!", s)
 
-	for i := 1; i <= 5; i++ {
-		//TIP <p>To start your debugging session, right-click your code in the editor and select the Debug option.</p> <p>We have set one <icon src="AllIcons.Debugger.Db_set_breakpoint"/> breakpoint
-		// for you, but you can always add more by pressing <shortcut actionId="ToggleLineBreakpoint"/>.</p>
-		fmt.Println("i =", 100/i)
-	}
+	dataApi := external.NewDataAPI()
+	channelCollector := collector.NewChannelCollector(dataApi)
+	contentCollector := collector.NewContentCollector(dataApi)
+
+	// TODO: collect
+	fmt.Println(channelCollector.Collect())
+	fmt.Println(contentCollector.Collect())
 }
