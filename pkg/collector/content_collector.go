@@ -1,7 +1,7 @@
 package collector
 
 import (
-	"channel-contents-collector/api/v1/content/domain"
+	"channel-contents-collector/pkg/collector/domain"
 	"channel-contents-collector/pkg/external"
 )
 

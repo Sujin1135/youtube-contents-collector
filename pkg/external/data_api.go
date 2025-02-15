@@ -1,7 +1,7 @@
 package external
 
 import (
-	"channel-contents-collector/api/v1/content/domain"
+	"channel-contents-collector/pkg/collector/domain"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"

@@ -1,8 +1,8 @@
 package content
 
 import (
-	"channel-contents-collector/api/v1/content/domain"
 	"channel-contents-collector/pkg/collector"
+	"channel-contents-collector/pkg/collector/domain"
 	"channel-contents-collector/pkg/external"
 	"github.com/gin-gonic/gin"
 )
