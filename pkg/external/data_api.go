@@ -1,6 +1,8 @@
 package external
 
 import (
+	"channel-contents-collector/api/v1/content/domain"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
@@ -10,7 +12,7 @@ import (
 )
 
 type DataAPI interface {
-	Search(searchType SearchType, query string) (string, error)
+	Search(searchType SearchType, query string) (*domain.ContentResponse, error)
 }
 
 type dataAPI struct {
@@ -37,10 +39,10 @@ func (s SearchType) String() string {
 	}
 }
 
-func (receiver *dataAPI) Search(searchType SearchType, query string) (string, error) {
+func (receiver *dataAPI) Search(searchType SearchType, query string) (*domain.ContentResponse, error) {
 	endpoint, err := url.Parse(receiver.baseUrl + "/search")
 	if err != nil {
-		return "", err
+		return nil, err
 	}
 
 	endpoint.RawQuery = receiver.generateSearchParams(searchType, query)
@@ -51,14 +53,17 @@ func (receiver *dataAPI) Search(searchType SearchType, query string) (string, er
 		os.Exit(1)
 	}
 
-	responseData, err := ioutil.ReadAll(response.Body)
+	body, err := ioutil.ReadAll(response.Body)
 	if err != nil {
 		log.Fatal(err)
 	}
-	data := string(responseData)
-	fmt.Println(data)
+	var contentResponse domain.ContentResponse
+	bindErr := json.Unmarshal(body, &contentResponse)
+	if bindErr != nil {
+		return nil, err
+	}
 
-	return data, nil
+	return &contentResponse, nil
 }
 
 func (receiver *dataAPI) generateSearchParams(searchType SearchType, query string) string {

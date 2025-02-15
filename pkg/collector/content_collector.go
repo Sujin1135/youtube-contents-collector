@@ -1,8 +1,8 @@
 package collector
 
 import (
+	"channel-contents-collector/api/v1/content/domain"
 	"channel-contents-collector/pkg/external"
-	"fmt"
 )
 
 type contentCollector struct {
@@ -15,8 +15,7 @@ func NewContentCollector(dataAPI external.DataAPI) Collector {
 	}
 }
 
-func (c *contentCollector) Collect(query string) (string, error) {
+func (c *contentCollector) Collect(query string) (*domain.ContentResponse, error) {
 	data, _ := c.dataAPI.Search(external.Content, query)
-	fmt.Println("found contents are " + data)
 	return data, nil
 }
