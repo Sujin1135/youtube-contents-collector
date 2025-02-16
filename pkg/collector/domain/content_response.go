@@ -5,7 +5,7 @@ import "time"
 type ContentResponse struct {
 	Kind          string    `json:"kind"`
 	Etag          string    `json:"etag"`
-	NextPageToken string    `json:"nextPageToken"`
+	NextPageToken *string   `json:"nextPageToken"`
 	RegionCode    string    `json:"regionCode"`
 	PageInfo      *PageInfo `json:"pageInfo"`
 	Items         *[]Item   `json:"items"`
