@@ -5,17 +5,17 @@ import (
 	"channel-contents-collector/pkg/external"
 )
 
-type contentCollector struct {
+type ContentCollector struct {
 	dataAPI external.DataAPI
 }
 
-func NewContentCollector(dataAPI external.DataAPI) Collector {
-	return &contentCollector{
+func NewContentCollector(dataAPI external.DataAPI) *ContentCollector {
+	return &ContentCollector{
 		dataAPI: dataAPI,
 	}
 }
 
-func (c *contentCollector) Collect(query string) (*domain.ContentResponse, error) {
+func (c *ContentCollector) Collect(query string) (*domain.ContentResponse, error) {
 	data, err := c.dataAPI.Search(external.Content, query)
 	return data, err
 }
