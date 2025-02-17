@@ -16,6 +16,6 @@ func NewChannelCollector(dataAPI external.DataAPI) Collector {
 }
 
 func (c *channelCollector) Collect(query string) (*domain.ContentResponse, error) {
-	data, _ := c.dataAPI.Search(external.Channel, query)
-	return data, nil
+	data, err := c.dataAPI.Search(external.Channel, query)
+	return data, err
 }

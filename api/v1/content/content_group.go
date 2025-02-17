@@ -17,6 +17,7 @@ func InitContentsGroup(router *gin.RouterGroup) {
 	{
 		content.POST("/collect", func(c *gin.Context) {
 			var collectRequest domain.CollectRequest
+
 			err := c.ShouldBindJSON(&collectRequest)
 			if err != nil {
 				log.Printf("invalid request body: %+v", err)

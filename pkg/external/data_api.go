@@ -3,7 +3,7 @@ package external
 import (
 	"channel-contents-collector/pkg/collector/domain"
 	"encoding/json"
-	"fmt"
+	"github.com/pkg/errors"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -42,15 +42,14 @@ func (s SearchType) String() string {
 func (receiver *dataAPI) Search(searchType SearchType, query string) (*domain.ContentResponse, error) {
 	endpoint, err := url.Parse(receiver.baseUrl + "/search")
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "failed to parse url")
 	}
 
 	endpoint.RawQuery = receiver.generateSearchParams(searchType, query)
 	response, err := http.Get(endpoint.String())
 
 	if err != nil {
-		fmt.Print(err.Error())
-		os.Exit(1)
+		return nil, errors.Wrap(err, "failed to fetch data")
 	}
 
 	body, err := ioutil.ReadAll(response.Body)

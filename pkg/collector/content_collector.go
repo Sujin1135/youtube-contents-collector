@@ -16,6 +16,6 @@ func NewContentCollector(dataAPI external.DataAPI) Collector {
 }
 
 func (c *contentCollector) Collect(query string) (*domain.ContentResponse, error) {
-	data, _ := c.dataAPI.Search(external.Content, query)
-	return data, nil
+	data, err := c.dataAPI.Search(external.Content, query)
+	return data, err
 }
