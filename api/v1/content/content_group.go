@@ -12,7 +12,7 @@ import (
 
 func InitContentsGroup(router *gin.RouterGroup) {
 	dataApi := external.NewDataAPI()
-	channelCollector := collector.NewChannelCollector(dataApi)
+	channelCollector := collector.NewContentsCollector(dataApi)
 	content := router.Group("/contents")
 	{
 		content.POST("/collect", func(c *gin.Context) {
@@ -25,13 +25,13 @@ func InitContentsGroup(router *gin.RouterGroup) {
 				return
 			}
 
-			collect, err := channelCollector.Collect(collectRequest.Keyword)
-			if err != nil {
-				c.Error(error2.NewHttpError("Occurred an error when collecting youtube contents", err.Error(), http.StatusBadRequest))
+			contentsErr := channelCollector.Collect(collectRequest.Keyword)
+			if contentsErr != nil {
+				c.Error(error2.NewHttpError("Occurred an error when collecting youtube contents", contentsErr.Error(), http.StatusBadRequest))
 				return
 			}
 
-			c.JSON(200, collect)
+			c.JSON(200, nil)
 		})
 	}
 }

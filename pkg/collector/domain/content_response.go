@@ -8,7 +8,7 @@ type ContentResponse struct {
 	NextPageToken *string   `json:"nextPageToken"`
 	RegionCode    string    `json:"regionCode"`
 	PageInfo      *PageInfo `json:"pageInfo"`
-	Items         *[]Item   `json:"items"`
+	Items         []Item    `json:"items"`
 }
 
 type PageInfo struct {
